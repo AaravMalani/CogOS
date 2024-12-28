@@ -26,5 +26,5 @@ void outl(uint16_t address, uint32_t data) {
 }
 
 void ioWait() {
-    outb(0x80, 0xFF);
+    outb(0x80, 0xFF); // Writes dummy value to unused port
 }

@@ -1,7 +1,7 @@
 [bits 32]
-extern main
+extern main 
 
-call main
-jmp $
+call main ; Enter the kernel
+jmp $ ; If the kernel exits, halt indefinitely
 
 

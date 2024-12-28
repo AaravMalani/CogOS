@@ -2,3 +2,4 @@
 *.o
 i386-elf-7.5.0-Linux-x86_64
 .vscode
+log.txt
