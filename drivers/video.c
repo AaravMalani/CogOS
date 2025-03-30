@@ -1,4 +1,4 @@
-#include "video.h"
+#include <drivers/video.h>
 
 volatile uint8_t x = 0, y = 0;
 volatile uint8_t color = 0;

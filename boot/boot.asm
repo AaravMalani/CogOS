@@ -89,7 +89,7 @@ ret ; Returns to calling instruction
 
 HARDDRIVE_1: db "Error reading hard drive!", 0xa, 0xd, 0
 
-times (510-gdt_end+gdt_start) - ($ - $$) db 0 ; Move the GDT to the end of the file 
+times (440-gdt_end+gdt_start) - ($ - $$) db 0 ; Move the GDT to the right before the GDT 
 
 gdt_start:
 
@@ -117,6 +117,34 @@ gdtr:
 dw gdtr-gdt_start-1 ; Stores one less than the GDT's size 
 dd gdt_start        ; Stores the base of the GDT
 gdt_end:
+
+times 440-($-$$) db 0 ; Move the MBR to the end of the file
+dd 0    ; Disk ID  (Unused for now)
+dw 0    ; Reserved (Set to 0)
+
+; Partition 1 (Sectors 2048-4048)
+db 0x80 ; Bootable 
+db 0x02 ; Starting Head
+db 0x21 ; Starting Sector | Upper 2 bits of Starting Cylinder
+db 0x00 ; Low 8 bits of Starting Cylinder
+db 0x06 ; System ID (FAT16)
+db 0x04 ; Ending Head
+db 0x11 ; Ending Sector | Upper 2 bits of Ending Cylinder
+db 0x00 ; Low 8 bits of Ending Cylinder
+dd 0x0800 ; Relative Sector
+dd 0x07d0 ; Total Sectors
+
+; Partition 2 (Unused)
+dq 0
+dq 0
+
+; Partition 3 (Unused)
+dq 0
+dq 0
+
+; Partition 4 (Unused)
+dq 0
+dq 0
 
 times 510-($-$$) db 0 ; Set the rest of the bootsector to 0
 dw 0xaa55 ; Set the last two bytes to the signature

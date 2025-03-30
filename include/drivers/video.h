@@ -1,7 +1,7 @@
 #ifndef __VIDEO
 #define __VIDEO
 
-#include "../utils/ports.h"
+#include <utils/ports.h>
 
 void clear(uint8_t newColor); // Clear the screen to a color and reset VGA cursor
 void update_cursor();         // Update VGA cursor
